@@ -2,28 +2,39 @@
   assign main_menu = section.settings.menu
 -%}
 
-<header role="banner" class="header-section relative z-10 w-full bg-white shadow-md">
-  <div class="header-container mx-auto flex items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-    <div class="header-logo flex-shrink-0">
-      <a href="/" class="text-2xl font-bold text-gray-800 hover:text-gray-600">
-        {{ shop.name }}
+<header role="banner" class="header-wrapper">
+  <div class="header mx-auto flex justify-between px-4 sm:px-6 lg:px-8">
+    <div class="header__heading">
+      <a href="{{ routes.root_url }}" class="header__heading-link">
+        {%- render 'icon-logo-aeh', class:'header__heading-logo' -%}
       </a>
     </div>
 
-    <nav class="header-navigation hidden md:flex md:items-center md:gap-x-8">
+    <nav class="header__inline-menu hidden md:flex md:items-center md:gap-x-8">
       {%- for link in main_menu.links -%}
-        <a href="{{ link.url }}" class="text-base font-medium text-gray-500 hover:text-gray-900">
+        <a href="{{ link.url }}" class="header__menu-item"{% if link.current %} aria-current="page"{% endif %}>
           {{ link.title }}
         </a>
       {%- endfor -%}
     </nav>
 
-    <div class="header-actions flex items-center gap-x-4">
-      <a href="{{ routes.cart_url }}" class="text-base font-medium text-gray-500 hover:text-gray-900">
-        Cart
+    <div class="header__icons flex items-center gap-x-4">
+      <a href="{{ routes.search_url }}" class="header__icon" aria-label="Search">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.2-5.2m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
       </a>
-      <button id="mobile-menu-toggle" class="-mr-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden">
-        <span class="sr-only">Open main menu</span>
+      <a href="{{ routes.account_url }}" class="icon--account" aria-label="Account">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9A3.75 3.75 0 1112 5.25 3.75 3.75 0 0115.75 9zM4.5 19.5a7.5 7.5 0 1115 0v.75H4.5v-.75z" />
+        </svg>
+      </a>
+      <a href="{{ routes.cart_url }}" class="icon--cart" aria-label="Cart">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-2 9m2-9l2 9m6-9l2 9m-2-9L9 5m0 0L7.4 4m1.6 1L10 14m4-9h2l-1-3M5.4 5H21" />
+        </svg>
+      </a>
+      <button id="mobile-menu-toggle" class="md:hidden p-2" aria-label="Open main menu">
         <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
         </svg>
@@ -71,3 +82,4 @@
   ]
 }
 {% endschema %}
+
