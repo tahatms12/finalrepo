@@ -1,0 +1,80 @@
+<footer class="bg-gray-800 text-white py-8">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <h3 class="text-lg font-bold mb-4">{{ section.settings.about_title }}</h3>
+        <p>{{ section.settings.about_text }}</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-bold mb-4">{{ section.settings.links_title }}</h3>
+        <ul>
+          {% for block in section.blocks %}
+            <li><a href="{{ block.settings.link }}" class="hover:underline">{{ block.settings.text }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-lg font-bold mb-4">{{ section.settings.social_title }}</h3>
+        <div class="flex space-x-4">
+          <a href="#" class="hover:text-gray-400">Facebook</a>
+          <a href="#" class="hover:text-gray-400">Twitter</a>
+          <a href="#" class="hover:text-gray-400">Instagram</a>
+        </div>
+      </div>
+    </div>
+    <div class="mt-8 text-center text-sm text-gray-400">
+      <p>&copy; {{ "now" | date: "%Y" }} {{ shop.name }}. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "about_title",
+      "label": "About Title",
+      "default": "About Us"
+    },
+    {
+      "type": "text",
+      "id": "about_text",
+      "label": "About Text",
+      "default": "Your one-stop shop for all things auto."
+    },
+    {
+      "type": "text",
+      "id": "links_title",
+      "label": "Links Title",
+      "default": "Quick Links"
+    },
+    {
+      "type": "text",
+      "id": "social_title",
+      "label": "Social Title",
+      "default": "Follow Us"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Home"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

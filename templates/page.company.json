@@ -1,0 +1,43 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-company-content",
+      "settings": {},
+      "blocks": {
+        "item1": {
+          "type": "list_item",
+          "settings": {
+            "item": "Extensive inventory of OEM and aftermarket parts"
+          }
+        },
+        "item2": {
+          "type": "list_item",
+          "settings": {
+            "item": "Competitive pricing and worldwide shipping"
+          }
+        },
+        "item3": {
+          "type": "list_item",
+          "settings": {
+            "item": "Knowledgeable and friendly staff"
+          }
+        },
+        "item4": {
+          "type": "list_item",
+          "settings": {
+            "item": "Easy-to-use website with advanced search tools"
+          }
+        },
+        "item5": {
+          "type": "list_item",
+          "settings": {
+            "item": "30-day return policy for peace of mind"
+          }
+        }
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

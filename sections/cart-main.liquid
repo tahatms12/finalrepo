@@ -1,0 +1,113 @@
+<div class="container mx-auto p-10">
+  <h1 class="text-3xl font-bold mb-8">{{ section.settings.title }}</h1>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="md:col-span-2">
+      {% if cart.item_count > 0 %}
+        {% for item in cart.items %}
+          <div class="border-b pb-4 mb-4 flex justify-between items-center">
+            <div class="flex items-center">
+              {% if item.image %}
+                <img src="{{ item.image | image_url: 'small' }}" alt="{{ item.image.alt }}" width="24" height="24" object-cover mr-4/>
+              {% else %}
+                <div class="w-24 h-24 bg-gray-200 mr-4"></div>
+              {% endif %}
+              <div>
+                <h2 class="font-bold">{{ item.product.title }}</h2>
+                <p class="text-sm text-gray-500">{{ item.sku }}</p>
+                <p class="text-sm text-gray-500">Quantity: {{ item.quantity }}</p>
+              </div>
+            </div>
+            <div>
+              <p>{{ item.line_price | money }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>{{ section.settings.empty_cart_message }}</p>
+        <a href="{{ routes.all_products_collection_url }}" class="text-blue-500 hover:underline">{{ section.settings.continue_shopping_text }}</a>
+      {% endif %}
+    </div>
+    <div class="md:col-span-1">
+      <div class="border p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold mb-4">{{ section.settings.summary_title }}</h2>
+        <div class="flex justify-between mb-2">
+          <p>{{ section.settings.subtotal_text }}</p>
+          <p>{{ cart.total_price | money }}</p>
+        </div>
+        <div class="flex justify-between mb-4">
+          <p>{{ section.settings.shipping_text }}</p>
+          <p>{{ section.settings.shipping_value }}</p>
+        </div>
+        <div class="flex justify-between font-bold text-xl">
+          <p>{{ section.settings.total_text }}</p>
+          <p>{{ cart.total_price | money }}</p>
+        </div>
+        <a href="/checkout" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full block text-center mt-4">
+          {{ section.settings.checkout_button_text }}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cart Main",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Shopping Cart"
+    },
+    {
+      "type": "text",
+      "id": "empty_cart_message",
+      "label": "Empty Cart Message",
+      "default": "Your cart is empty."
+    },
+    {
+      "type": "text",
+      "id": "continue_shopping_text",
+      "label": "Continue Shopping Text",
+      "default": "Continue shopping"
+    },
+    {
+      "type": "text",
+      "id": "summary_title",
+      "label": "Summary Title",
+      "default": "Cart Summary"
+    },
+    {
+      "type": "text",
+      "id": "subtotal_text",
+      "label": "Subtotal Text",
+      "default": "Subtotal"
+    },
+    {
+      "type": "text",
+      "id": "shipping_text",
+      "label": "Shipping Text",
+      "default": "Shipping"
+    },
+    {
+      "type": "text",
+      "id": "shipping_value",
+      "label": "Shipping Value",
+      "default": "Calculated at checkout"
+    },
+    {
+      "type": "text",
+      "id": "total_text",
+      "label": "Total Text",
+      "default": "Total"
+    },
+    {
+      "type": "text",
+      "id": "checkout_button_text",
+      "label": "Checkout Button Text",
+      "default": "Proceed to Checkout"
+    }
+  ]
+}
+{% endschema %}

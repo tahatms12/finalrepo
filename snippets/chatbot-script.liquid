@@ -1,0 +1,38 @@
+<script>
+  (function(d, t) {
+    var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+    v.onload = function() {
+      window.voiceflow.chat.load({
+        verify: { projectID: '6857f4ab23e97962edae4f6b' },
+        url: 'https://general-runtime.voiceflow.com',
+        versionID: 'production',
+        assistant: {
+          persistence: 'localStorage'
+        },
+        user: {
+          name: 'Guest',
+        }
+      });
+
+      // Open widget after 3s and send intro message
+      setTimeout(function() {
+        window.voiceflow.chat.open();
+        window.voiceflow.chat.proactive.push([
+          { type: 'text', payload: { message: "Hi there! I'm your assistant for everything here 🚗 Just ask away." } }
+        ]);
+      }, 3000);
+
+      // Trigger proactive message if chat is minimized
+      window.addEventListener('message', (event) => {
+        if (event?.data?.type === 'voiceflow:close') {
+          window.voiceflow.chat.proactive.push([
+            { type: 'text', payload: { message: "Use me for everything! I’m here to help ⚙" } }
+          ]);
+        }
+      }, false);
+    };
+    v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
+    v.type = "text/javascript";
+    s.parentNode.insertBefore(v, s);
+  })(document, 'script');
+</script>

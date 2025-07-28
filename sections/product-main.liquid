@@ -1,0 +1,170 @@
+<div class="container mx-auto p-10">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div>
+      {% if product.featured_image %}
+        <img src="{{ product.featured_image | image_url: 'large' }}" 
+       alt="{{ product.featured_image.alt }}" 
+         width="{{ product.featured_image.width }}" 
+     height="{{ product.featured_image.height }}" 
+     class="w-full h-96 object-cover mb-4"/>
+      {% else %}
+        <div class="bg-gray-200 h-96 mb-4"></div>
+      {% endif %}
+    </div>
+    <div>
+      <p class="text-sm text-gray-500">{{ product.sku }}</p>
+      <h1 class="text-3xl font-bold mb-4">{{ product.title }}</h1>
+      <p class="text-2xl font-bold mb-4">{{ product.price | money }}</p>
+
+      {% form 'product', product %}
+        <select name="id" id="product-select-{{ product.id }}" class="hidden">
+          {% for variant in product.variants %}
+            <option
+              {% if variant == product.selected_or_first_available_variant %}
+                selected="selected"
+              {% endif %}
+              {% if variant.available == false %}
+                disabled="disabled"
+              {% endif %}
+              value="{{ variant.id }}"
+            >
+              {{ variant.title }}
+            </option>
+          {% endfor %}
+        </select>
+
+        <button type="submit" name="add" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full"
+          {% if product.selected_or_first_available_variant.available == false %}
+            disabled="disabled"
+          {% endif %}
+        >
+          {% if product.selected_or_first_available_variant.available %}
+            {{ section.settings.add_to_cart_text }}
+          {% else %}
+            {{ section.settings.sold_out_text }}
+          {% endif %}
+        </button>
+      {% endform %}
+
+      <div class="mb-4">
+        <span class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">{{ section.settings.badge_text }}</span>
+      </div>
+      <div class="mb-4">
+        <h2 class="font-bold mb-2">{{ section.settings.specs_title }}</h2>
+        <div class="prose">{{ product.description }}</div>
+      </div>
+      <div class="mb-4">
+        <h2 class="font-bold mb-2">{{ section.settings.compatibility_title }}</h2>
+        <p>{{ section.settings.compatibility_text }}</p>
+      </div>
+      <div class="mb-4">
+        <h2 class="font-bold mb-2">{{ section.settings.condition_title }}</h2>
+        <p>{{ section.settings.condition_text }}</p>
+      </div>
+      <div class="mb-4">
+        <h2 class="font-bold mb-2">{{ section.settings.shipping_title }}</h2>
+        <p>{{ section.settings.shipping_text }}</p>
+      </div>
+      <div class="mb-4">
+        <h2 class="font-bold mb-2">{{ section.settings.pickup_title }}</h2>
+        <p>{{ section.settings.pickup_text }}</p>
+      </div>
+      <div class="mb-4">
+        <h2 class="font-bold mb-2">{{ section.settings.return_policy_title }}</h2>
+        <p>{{ section.settings.return_policy_text }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Main",
+  "settings": [
+    {
+      "type": "text",
+      "id": "add_to_cart_text",
+      "label": "Add to Cart Button Text",
+      "default": "Add to Cart"
+    },
+    {
+      "type": "text",
+      "id": "sold_out_text",
+      "label": "Sold Out Button Text",
+      "default": "Sold Out"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "OEM/Aftermarket Badge (Placeholder)"
+    },
+    {
+      "type": "text",
+      "id": "specs_title",
+      "label": "Specifications Title",
+      "default": "Part Specifications"
+    },
+    {
+      "type": "text",
+      "id": "compatibility_title",
+      "label": "Compatibility Title",
+      "default": "Vehicle Compatibility (Placeholder)"
+    },
+    {
+      "type": "text",
+      "id": "compatibility_text",
+      "label": "Compatibility Text",
+      "default": "Compatible with Make Model Year"
+    },
+    {
+      "type": "text",
+      "id": "condition_title",
+      "label": "Condition Title",
+      "default": "Condition Details (Placeholder)"
+    },
+    {
+      "type": "text",
+      "id": "condition_text",
+      "label": "Condition Text",
+      "default": "New/Used"
+    },
+    {
+      "type": "text",
+      "id": "shipping_title",
+      "label": "Shipping Title",
+      "default": "Shipping Options (Placeholder)"
+    },
+    {
+      "type": "text",
+      "id": "shipping_text",
+      "label": "Shipping Text",
+      "default": "Worldwide Shipping"
+    },
+    {
+      "type": "text",
+      "id": "pickup_title",
+      "label": "Local Pickup Title",
+      "default": "Local Pickup Availability (Placeholder)"
+    },
+    {
+      "type": "text",
+      "id": "pickup_text",
+      "label": "Local Pickup Text",
+      "default": "Available at 5 locations"
+    },
+    {
+      "type": "text",
+      "id": "return_policy_title",
+      "label": "Return Policy Title",
+      "default": "Return Policy (Placeholder)"
+    },
+    {
+      "type": "text",
+      "id": "return_policy_text",
+      "label": "Return Policy Text",
+      "default": "30-Day Return Policy"
+    }
+  ]
+}
+{% endschema %}

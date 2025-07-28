@@ -1,0 +1,117 @@
+<div class="container mx-auto p-10 flex justify-center items-center">
+  <div class="w-full max-w-md">
+    <h1 class="text-3xl font-bold mb-8 text-center">{{ section.settings.title }}</h1>
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      {% form 'create_customer' %}
+        {{ form.errors | default_errors }}
+
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="FirstName">
+            {{ section.settings.first_name_label }}
+          </label>
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="customer[first_name]" id="FirstName" placeholder="{{ section.settings.first_name_placeholder }}" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} autocapitalize="words" autofocus>
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="LastName">
+            {{ section.settings.last_name_label }}
+          </label>
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="customer[last_name]" id="LastName" placeholder="{{ section.settings.last_name_placeholder }}" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} autocapitalize="words">
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="Email">
+            {{ section.settings.email_label }}
+          </label>
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="email" name="customer[email]" id="Email" placeholder="{{ section.settings.email_placeholder }}" {% if form.email %}value="{{ form.email }}"{% endif %} autocorrect="off" autocapitalize="off">
+        </div>
+        <div class="mb-6">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="CreatePassword">
+            {{ section.settings.password_label }}
+          </label>
+          <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" type="password" name="customer[password]" id="CreatePassword" placeholder="{{ section.settings.password_placeholder }}">
+        </div>
+        <div class="flex items-center justify-between">
+          <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            {{ section.settings.register_button_text }}
+          </button>
+          <a href="{{ routes.account_login_url }}" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+            {{ section.settings.login_link_text }}
+          </a>
+        </div>
+      {% endform %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Customer Register Main",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Create Account"
+    },
+    {
+      "type": "text",
+      "id": "first_name_label",
+      "label": "First Name Label",
+      "default": "First Name"
+    },
+    {
+      "type": "text",
+      "id": "first_name_placeholder",
+      "label": "First Name Placeholder",
+      "default": "First Name"
+    },
+    {
+      "type": "text",
+      "id": "last_name_label",
+      "label": "Last Name Label",
+      "default": "Last Name"
+    },
+    {
+      "type": "text",
+      "id": "last_name_placeholder",
+      "label": "Last Name Placeholder",
+      "default": "Last Name"
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Email Label",
+      "default": "Email"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email Placeholder",
+      "default": "Email"
+    },
+    {
+      "type": "text",
+      "id": "password_label",
+      "label": "Password Label",
+      "default": "Password"
+    },
+    {
+      "type": "text",
+      "id": "password_placeholder",
+      "label": "Password Placeholder",
+      "default": "Password"
+    },
+    {
+      "type": "text",
+      "id": "register_button_text",
+      "label": "Register Button Text",
+      "default": "Register"
+    },
+    {
+      "type": "text",
+      "id": "login_link_text",
+      "label": "Login Link Text",
+      "default": "Already have an account?"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,39 @@
+<section class="testimonial-slider overflow-hidden">
+  <div class="swiper" id="slider-{{ section.id }}">
+    <div class="swiper-wrapper">
+      {% for block in section.blocks %}
+        <div class="swiper-slide p-8 text-center">
+          <p class="font-body text-body-mobile md:text-body-desktop italic mb-4">&ldquo;{{ block.settings.quote }}&rdquo;</p>
+          <h3 class="font-heading text-h3-mobile md:text-h3-desktop font-heading-weight">{{ block.settings.author }}</h3>
+        </div>
+      {% endfor %}
+    </div>
+    {% if section.settings.arrows %}<div class="swiper-button-prev"></div><div class="swiper-button-next"></div>{% endif %}
+    {% if section.settings.dots %}<div class="swiper-pagination"></div>{% endif %}
+  </div>
+
+  <script type="module">
+    import Swiper,{Navigation,Pagination,Autoplay} from "{{ 'swiper-bundle.esm.browser.min.js' | asset_url }}";
+    new Swiper('#slider-{{ section.id }}',{
+      modules:[Navigation,Pagination,Autoplay],
+      slidesPerView:1,
+      loop:true,
+      autoplay:{delay:{{ section.settings.auto_delay }}},
+      navigation:{nextEl:'#slider-{{ section.id }} .swiper-button-next',prevEl:'#slider-{{ section.id }} .swiper-button-prev'},
+      pagination:{el:'#slider-{{ section.id }} .swiper-pagination',clickable:true}
+    });
+  </script>
+
+  {% schema %}{
+    "name":"Testimonial slider",
+    "tag":"section",
+    "max_blocks":10,
+    "settings":[
+      {"type":"checkbox","id":"arrows","label":"Show arrows","default":true},
+      {"type":"checkbox","id":"dots","label":"Show dots","default":true},
+      {"type":"number","id":"auto_delay","label":"Autoplay delay (ms)","default":5000}
+    ],
+    "blocks":[{"type":"quote","name":"Quote","settings":[{"type":"textarea","id":"quote","label":"Quote"},{"type":"text","id":"author","label":"Author"}]}],
+    "presets":[{"name":"Testimonial slider"}]
+  }{% endschema %}
+</section>

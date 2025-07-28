@@ -1,0 +1,95 @@
+<div class="container mx-auto p-10">
+  <h1 class="text-3xl font-bold mb-8">{{ collection.title }}</h1>
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <div class="col-span-1">
+      <h2 class="font-bold mb-4">{{ section.settings.filters_title }}</h2>
+      <div>
+        <h3 class="font-bold mb-2">{{ section.settings.part_type_title }}</h3>
+        <a href="{{ routes.all_products_collection_url }}" class="block hover:text-blue-500">{{ section.settings.all_products_text }}</a>
+      </div>
+      <div class="mt-4">
+        <h3 class="font-bold mb-2">{{ section.settings.search_by_vehicle_title }}</h3>
+        
+        <input type="text" placeholder="{{ section.settings.make_placeholder }}" class="border p-2 rounded w-full mb-2" />
+        <input type="text" placeholder="{{ section.settings.model_placeholder }}" class="border p-2 rounded w-full mb-2" />
+        <input type="text" placeholder="{{ section.settings.year_placeholder }}" class="border p-2 rounded w-full" />
+      </div>
+    </div>
+    <div class="col-span-3">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {% for product in collection.products %}
+          <div class="border p-4 rounded">
+            <a href="{{ product.url }}">
+              {% if product.featured_image %}
+                <img src="{{ product.featured_image | image_url: 'medium' }}" alt="{{ product.featured_image.alt }}" width="full" height="48" object-cover mb-4/>
+              {% else %}
+                <div class="bg-gray-200 h-48 mb-4"></div>
+              {% endif %}
+              <h4 class="font-bold">{{ product.title }}</h4>
+              <p class="text-sm text-gray-500">{{ product.variants.first.sku }}</p>
+              <p>{{ product.price | money }}</p>
+            </a>
+          </div>
+        {% else %}
+          <p>{{ section.settings.no_products_message }}</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection Main",
+  "settings": [
+    {
+      "type": "text",
+      "id": "filters_title",
+      "label": "Filters Title",
+      "default": "Filters"
+    },
+    {
+      "type": "text",
+      "id": "part_type_title",
+      "label": "Part Type Title",
+      "default": "Part Type"
+    },
+    {
+      "type": "text",
+      "id": "all_products_text",
+      "label": "All Products Text",
+      "default": "All Products"
+    },
+    {
+      "type": "text",
+      "id": "search_by_vehicle_title",
+      "label": "Search by Vehicle Title",
+      "default": "Search by Vehicle"
+    },
+    {
+      "type": "text",
+      "id": "make_placeholder",
+      "label": "Make Placeholder",
+      "default": "Make"
+    },
+    {
+      "type": "text",
+      "id": "model_placeholder",
+      "label": "Model Placeholder",
+      "default": "Model"
+    },
+    {
+      "type": "text",
+      "id": "year_placeholder",
+      "label": "Year Placeholder",
+      "default": "Year"
+    },
+    {
+      "type": "text",
+      "id": "no_products_message",
+      "label": "No Products Message",
+      "default": "No products found in this collection."
+    }
+  ]
+}
+{% endschema %}

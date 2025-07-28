@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="{{ shop.locale }}">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ shop.name }} - {{ page_title }}</title>
+  {% for scheme in settings.color_schemes %}
+:root[data-color-scheme="{{ scheme.id }}"]{
+  --color-background: {{ scheme.background }};
+  --gradient-background: {{ scheme.gradient | default: 'none' }};
+  --color-foreground: {{ scheme.foreground }};
+  --color-shadow: {{ scheme.shadow }};
+  --color-button: {{ scheme.button_bg }};
+  --color-button-text: {{ scheme.button_text }};
+  --color-secondary-button: {{ scheme.background }};
+  --color-secondary-button-text: {{ scheme.secondary_text }};
+  --color-link: {{ scheme.foreground }};
+}
+{% endfor %}
+  <meta name="description" content="{{ page_description | default: shop.description }}">
+
+  {{ content_for_header }}
+
+  
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+  
+</head>
+<body data-color-scheme="{{ settings.default_color_scheme }}">
+  
+  {% section 'header' %}
+
+  <main role="main">
+    {{ content_for_layout }}
+  </main>
+
+  {% section 'footer' %}
+</body>
+</html>

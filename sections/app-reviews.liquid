@@ -1,0 +1,10 @@
+<section class="app-reviews container mx-auto">
+  {% render 'app-block', id: section.settings.app_block_id %}
+
+  {% schema %}{
+    "name":"App reviews",
+    "tag":"section",
+    "settings":[{"type":"text","id":"app_block_id","label":"App block ID","default":"shopify-product-reviews"}],
+    "presets":[{"name":"App reviews"}]
+  }{% endschema %}
+</section>

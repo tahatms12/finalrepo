@@ -1,0 +1,75 @@
+<div class="container mx-auto p-10">
+  <h1 class="text-3xl font-bold mb-8">{{ section.settings.title }}</h1>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div>
+      <h2 class="text-2xl font-bold mb-4">{{ section.settings.form_title }}</h2>
+      {% form 'contact' %}
+        {{ form.errors | default_errors }}
+
+        <div class="mb-4">
+          <label for="ContactFormName" class="block font-bold mb-2">Name</label>
+          <input type="text" id="ContactFormName" class="border p-2 rounded w-full" name="contact[name]" placeholder="Name" autocapitalize="words" value="{% if form.name %}{{ form.name }}{% endif %}">
+        </div>
+        <div class="mb-4">
+          <label for="ContactFormEmail" class="block font-bold mb-2">Email</label>
+          <input type="email" id="ContactFormEmail" class="border p-2 rounded w-full" name="contact[email]" placeholder="Email" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% endif %}">
+        </div>
+        <div class="mb-4">
+          <label for="ContactFormMessage" class="block font-bold mb-2">Message</label>
+          <textarea rows="5" id="ContactFormMessage" class="border p-2 rounded w-full" name="contact[body]" placeholder="Message">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+        </div>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Send Message</button>
+      {% endform %}
+    </div>
+    <div>
+      <h2 class="text-2xl font-bold mb-4">{{ section.settings.info_title }}</h2>
+      <p class="mb-2"><span class="font-bold">Address:</span> {{ section.settings.address }}</p>
+      <p class="mb-2"><span class="font-bold">Phone:</span> {{ section.settings.phone }}</p>
+      <p class="mb-2"><span class="font-bold">Email:</span> {{ section.settings.email }}</p>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact Form",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Contact Us"
+    },
+    {
+      "type": "text",
+      "id": "form_title",
+      "label": "Form Title",
+      "default": "Get in Touch"
+    },
+    {
+      "type": "text",
+      "id": "info_title",
+      "label": "Info Title",
+      "default": "Contact Information"
+    },
+    {
+      "type": "text",
+      "id": "address",
+      "label": "Address",
+      "default": "123 Auto Enhance Hub Way, Autoville, USA"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone",
+      "default": "(123) 456-7890"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email",
+      "default": "contact@partspanel.com"
+    }
+  ]
+}
+{% endschema %}

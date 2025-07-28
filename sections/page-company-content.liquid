@@ -1,0 +1,108 @@
+<div class="container mx-auto p-10 text-secondary">
+  <h1 class="text-3xl font-bold mb-8 text-white">{{ page.title }}</h1>
+  <div class="space-y-8">
+    <section>
+      <h2 class="text-2xl font-bold mb-4 text-white">{{ section.settings.story_title }}</h2>
+      <p>{{ section.settings.story_content }}</p>
+    </section>
+    <section>
+      <h2 class="text-2xl font-bold mb-4 text-white">{{ section.settings.mission_title }}</h2>
+      <p>{{ section.settings.mission_content }}</p>
+    </section>
+    <section>
+      <h2 class="text-2xl font-bold mb-4 text-white">{{ section.settings.why_title }}</h2>
+      <ul class="list-disc list-inside space-y-2">
+        {% for block in section.blocks %}
+          <li>{{ block.settings.item }}</li>
+        {% endfor %}
+      </ul>
+    </section>
+    <section class="bg-gray-100 p-8 rounded-lg text-primary">
+      <h2 class="text-2xl font-bold mb-4">{{ section.settings.newsletter_title }}</h2>
+      <p class="mb-4">{{ section.settings.newsletter_text }}</p>
+      <form action="/contact#contact_form" method="post" id="contact_form" accept-charset="UTF-8" class="flex">
+        <input type="hidden" name="form_type" value="customer" />
+        <input type="hidden" name="utf8" value="✓" />
+        <input type="email" name="contact[email]" placeholder="Enter your email" class="border p-2 rounded-l-md w-full" required="required" />
+        <button type="submit" class="bg-accent-bright-red hover:bg-accent-deep-red text-white font-bold py-2 px-4 rounded-r-md">Subscribe</button>
+      </form>
+    </section>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Company Content",
+  "settings": [
+    {
+      "type": "text",
+      "id": "story_title",
+      "label": "Story Title",
+      "default": "Our Story"
+    },
+    {
+      "type": "richtext",
+      "id": "story_content",
+      "label": "Story Content",
+      "default": "<p>From our humble beginnings as a local salvage yard, Auto Enhance Hub has grown into a leading supplier of high-quality recycled and new aftermarket auto parts. Our passion for cars and our commitment to customer service have been the driving forces behind our success.</p>"
+    },
+    {
+      "type": "text",
+      "id": "mission_title",
+      "label": "Mission Title",
+      "default": "Mission Statement"
+    },
+    {
+      "type": "richtext",
+      "id": "mission_content",
+      "label": "Mission Content",
+      "default": "<p>To deliver premium Auto Enhance Hub service that blend cutting-edge technology with user-friendly experiences, tailored for modern drivers and vehicle-specific needs.</p>"
+    },
+    {
+      "type": "text",
+      "id": "why_title",
+      "label": "Why Choose Us Title",
+      "default": "Why Choose Auto Enhance Hub?"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_title",
+      "label": "Newsletter Title",
+      "default": "Newsletter Signup"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_text",
+      "label": "Newsletter Text",
+      "default": "Stay up-to-date with our latest promotions, new arrivals, and company news."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "list_item",
+      "name": "List Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "item",
+          "label": "Item",
+          "default": "Extensive inventory of OEM and aftermarket parts"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Company Content",
+      "category": "Page",
+      "blocks": [
+        { "type": "list_item" },
+        { "type": "list_item" },
+        { "type": "list_item" },
+        { "type": "list_item" },
+        { "type": "list_item" }
+      ]
+    }
+  ]
+}
+{% endschema %}

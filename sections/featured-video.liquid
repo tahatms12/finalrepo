@@ -1,0 +1,13 @@
+<section class="featured-video relative max-w-5xl mx-auto">
+  <div class="aspect-w-16 aspect-h-9">
+    <iframe class="w-full h-full" src="{{ section.settings.video_url | escape }}" frameborder="0" allowfullscreen loading="lazy"></iframe>
+  </div>
+  {% if section.settings.caption %}<p class="mt-4 text-center font-body text-body-mobile md:text-body-desktop">{{ section.settings.caption }}</p>{% endif %}
+
+  {% schema %}{
+    "name":"Featured video",
+    "tag":"section",
+    "settings":[{"type":"url","id":"video_url","label":"YouTube or Vimeo URL"},{"type":"text","id":"caption","label":"Caption"}],
+    "presets":[{"name":"Featured video"}]
+  }{% endschema %}
+</section>

@@ -1,0 +1,37 @@
+{% schema %}
+{
+  "name": "Product Grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Matching Products"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Grid"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl font-bold text-center mb-12">{{ section.settings.title }}</h2>
+    <div id="product-list" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {% for product in section.settings.collection.products %}
+        <div class="product-item border p-4 rounded-lg shadow-md">
+          <h3 class="text-xl font-semibold">{{ product.title }}</h3>
+          <p class="text-lg font-bold mt-2">{{ product.price | money }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

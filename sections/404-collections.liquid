@@ -1,0 +1,54 @@
+<div class="mt-12">
+  <h3 class="text-xl font-semibold text-gray-700 mb-4">{{ section.settings.title }}</h3>
+  <div class="flex flex-wrap justify-center gap-4">
+    {% for block in section.blocks %}
+      <a href="{{ block.settings.link }}" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded">{{ block.settings.text }}</a>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "404 Collections",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Or, explore our popular categories:"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_link",
+      "name": "Collection Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Drivetrain"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "404 Collections",
+      "category": "404",
+      "blocks": [
+        { "type": "collection_link" },
+        { "type": "collection_link" },
+        { "type": "collection_link" },
+        { "type": "collection_link" },
+        { "type": "collection_link" }
+      ]
+    }
+  ]
+}
+{% endschema %}

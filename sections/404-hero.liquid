@@ -1,0 +1,31 @@
+<div class="container mx-auto px-4 py-16 text-center animate-fade-in">
+  <h1 class="text-6xl font-bold text-gray-800 mb-4">{{ section.settings.title }}</h1>
+  <h2 class="text-3xl font-semibold text-gray-600 mb-4">{{ section.settings.subtitle }}</h2>
+  <p class="text-lg mb-8 text-gray-500">{{ section.settings.text }}</p>
+</div>
+
+{% schema %}
+{
+  "name": "404 Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "404"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Lost in Space?"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "It seems you've ventured into the unknown. Let's get you back on track."
+    }
+  ]
+}
+{% endschema %}

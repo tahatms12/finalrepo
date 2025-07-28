@@ -1,0 +1,20 @@
+<section class="faq-accordion max-w-3xl mx-auto">
+  {% if section.settings.title %}<h2 class="font-heading text-h2-mobile md:text-h2-desktop font-heading-weight mb-8 text-center">{{ section.settings.title }}</h2>{% endif %}
+  <div class="space-y-4">
+    {% for block in section.blocks %}
+      <details class="border-[var(--cards-border)] border-solid border-[color:var(--color-foreground)]/[var(--cards-border-opacity)] rounded-[var(--cards-radius)] p-4 shadow-[var(--cards-shadow-offset)] [box-shadow:var(--cards-shadow-offset)_rgba(var(--color-shadow),var(--cards-shadow-opacity))]">
+        <summary class="font-body-weight-bold cursor-pointer">{{ block.settings.question }}</summary>
+        <div class="mt-2">{{ block.settings.answer }}</div>
+      </details>
+    {% endfor %}
+  </div>
+
+  {% schema %}{
+    "name":"FAQ accordion",
+    "tag":"section",
+    "max_blocks":20,
+    "settings":[{"type":"text","id":"title","label":"Heading","default":"FAQs"}],
+    "blocks":[{"type":"faq","name":"FAQ","settings":[{"type":"text","id":"question","label":"Question"},{"type":"textarea","id":"answer","label":"Answer"}]}],
+    "presets":[{"name":"FAQ accordion"}]
+  }{% endschema %}
+</section>

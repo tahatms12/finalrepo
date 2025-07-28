@@ -1,0 +1,28 @@
+{% liquid
+  assign limit          = section.settings.products_limit | default: 8
+  assign cols_desktop   = section.settings.columns_desktop | default: 4
+  assign coll           = collections[section.settings.collection]
+  assign products       = coll.products | slice: 0, limit
+%}
+
+<section class="product-grid container mx-auto">
+  {% if section.settings.title %}<h2 class="font-heading text-h2-mobile md:text-h2-desktop font-heading-weight mb-6 text-center">{{ section.settings.title }}</h2>{% endif %}
+  <ul class="grid gap-6 md:grid-cols-{{ cols_desktop }}">
+    {% for product in products %}
+      <li>{% render 'card-product', product: product %}</li>
+    {% endfor %}
+  </ul>
+
+  {% schema %}{
+    "name":"Product grid",
+    "tag":"section",
+    "class":"section section-product-grid",
+    "settings":[
+      {"type":"text","id":"title","label":"Heading","default":"Featured products"},
+      {"type":"collection","id":"collection","label":"Collection"},
+      {"type":"number","id":"products_limit","label":"Products to show","default":8},
+      {"type":"range","id":"columns_desktop","label":"Columns desktop","min":2,"max":5,"step":1,"default":4}
+    ],
+    "presets":[{"name":"Product grid"}]
+  }{% endschema %}
+</section>

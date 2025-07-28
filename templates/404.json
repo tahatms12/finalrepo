@@ -1,0 +1,68 @@
+{
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": {}
+    },
+    "hero": {
+      "type": "404-hero",
+      "settings": {}
+    },
+    "search": {
+      "type": "404-search",
+      "settings": {}
+    },
+    "collections": {
+      "type": "404-collections",
+      "settings": {},
+      "blocks": {
+        "collection1": {
+          "type": "collection_link",
+          "settings": {
+            "text": "Drivetrain",
+            "link": "/pages/drivetrain"
+          }
+        },
+        "collection2": {
+          "type": "collection_link",
+          "settings": {
+            "text": "Electrical",
+            "link": "/pages/electrical"
+          }
+        },
+        "collection3": {
+          "type": "collection_link",
+          "settings": {
+            "text": "Exterior",
+            "link": "/pages/exterior"
+          }
+        },
+        "collection4": {
+          "type": "collection_link",
+          "settings": {
+            "text": "Interior",
+            "link": "/pages/interior"
+          }
+        },
+        "collection5": {
+          "type": "collection_link",
+          "settings": {
+            "text": "Wheels & Tires",
+            "link": "/pages/wheels-tires"
+          }
+        }
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "header",
+    "hero",
+    "search",
+    "collections",
+    "footer"
+  ]
+}

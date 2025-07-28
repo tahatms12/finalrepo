@@ -1,0 +1,53 @@
+{
+  "sections": {
+    "main": {
+      "type": "page-locations",
+      "settings": {},
+      "blocks": {
+        "location1": {
+          "type": "location",
+          "settings": {
+            "name": "Location 1",
+            "address": "123 Main St, Anytown, USA",
+            "hours": "Mon-Fri: 9am-5pm"
+          }
+        },
+        "location2": {
+          "type": "location",
+          "settings": {
+            "name": "Location 2",
+            "address": "456 Oak Ave, Sometown, USA",
+            "hours": "Mon-Fri: 9am-5pm"
+          }
+        },
+        "location3": {
+          "type": "location",
+          "settings": {
+            "name": "Location 3",
+            "address": "789 Pine Ln, Othertown, USA",
+            "hours": "Mon-Fri: 9am-5pm"
+          }
+        },
+        "location4": {
+          "type": "location",
+          "settings": {
+            "name": "Location 4",
+            "address": "101 Maple Dr, Anothertown, USA",
+            "hours": "Mon-Fri: 9am-5pm"
+          }
+        },
+        "location5": {
+          "type": "location",
+          "settings": {
+            "name": "Location 5",
+            "address": "212 Birch Rd, Lastown, USA",
+            "hours": "Mon-Fri: 9am-5pm"
+          }
+        }
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

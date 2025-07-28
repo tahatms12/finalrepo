@@ -1,0 +1,10 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "vfitz-ymm-theme",
+    "theme_version": "1.0.0",
+    "theme_author": "vfitz",
+    "theme_documentation_url": "https://github.com/vfitz/vfitz-ymm-search",
+    "theme_support_email": "vfitz@example.com"
+  }
+]
