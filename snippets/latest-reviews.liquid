@@ -1,6 +1,7 @@
 <div class="latest-reviews">
   {% comment %} Placeholder: display newest 3 reviews {% endcomment %}
-  {% for review in shop.metafields.reviews.latest | slice: 0, 3 %}
+  {% assign recent_reviews = shop.metafields.reviews.latest | slice: 0, 3 %}
+  {% for review in recent_reviews %}
     <blockquote>{{ review }}</blockquote>
   {% endfor %}
 </div>

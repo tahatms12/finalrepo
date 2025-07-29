@@ -3,12 +3,12 @@
   <div class="header">
     <div class="header__heading">
       <a href="{{ routes.root_url }}" class="header__heading-link" aria-label="{{ shop.name }}">
-        {%- render 'icon-logo-aeh', class:'header__heading-logo' -%}
+        {%- render 'icon-logo-aeh', class: 'header__heading-logo' -%}
       </a>
     </div>
 
     <nav class="header__menu" role="navigation">
-      {% for link in linklists['main-menu'].links %}
+      {% for link in linklists.main-menu.links %}
         <a href="{{ link.url }}"
            class="header__menu-item"
            {% if link.active %}aria-current="page"{% endif %}>
@@ -18,9 +18,9 @@
     </nav>
 
     <div class="header__icons">
-      <a href="{{ routes.search_url }}" aria-label="Search">{% render 'icon-search', class:'header__icon' %}</a>
-      <a href="{{ routes.account_url }}" aria-label="Account">{% render 'icon-account', class:'header__icon' %}</a>
-      <a href="{{ routes.cart_url }}" aria-label="Cart">{% render 'icon-cart', class:'header__icon' %}</a>
+      <a href="{{ routes.search_url }}" aria-label="Search">{% render 'icon-search', class: 'header__icon' %}</a>
+      <a href="{{ routes.account_url }}" aria-label="Account">{% render 'icon-account', class: 'header__icon' %}</a>
+      <a href="{{ routes.cart_url }}" aria-label="Cart">{% render 'icon-cart', class: 'header__icon' %}</a>
     </div>
   </div>
 </header>
