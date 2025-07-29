@@ -1,73 +1,33 @@
-{%- liquid
-  assign main_menu = section.settings.menu
--%}
+{% comment %} AEH branded header {% endcomment %}
+<header class="header-wrapper">
+  <div class="header">
+    <div class="header__heading">
+      <a href="{{ routes.root_url }}" class="header__heading-link" aria-label="{{ shop.name }}">
+        {%- render 'icon-logo-aeh', class: 'header__heading-logo' -%}
+=======
+        {%- render 'icon-logo-aeh', class:'header__heading-logo' -%}
 
-<header role="banner" class="header-section relative z-10 w-full bg-white shadow-md">
-  <div class="header-container mx-auto flex items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-    <div class="header-logo flex-shrink-0">
-      <a href="/" class="text-2xl font-bold text-gray-800 hover:text-gray-600">
-        {{ shop.name }}
       </a>
     </div>
 
-    <nav class="header-navigation hidden md:flex md:items-center md:gap-x-8">
-      {%- for link in main_menu.links -%}
-        <a href="{{ link.url }}" class="text-base font-medium text-gray-500 hover:text-gray-900">
+    <nav class="header__menu" role="navigation">
+      {% for link in linklists.main-menu.links %}
+        <a href="{{ link.url }}"
+           class="header__menu-item"
+           {% if link.active %}aria-current="page"{% endif %}>
           {{ link.title }}
         </a>
-      {%- endfor -%}
+      {% endfor %}
     </nav>
 
-    <div class="header-actions flex items-center gap-x-4">
-      <a href="{{ routes.cart_url }}" class="text-base font-medium text-gray-500 hover:text-gray-900">
-        Cart
-      </a>
-      <button id="mobile-menu-toggle" class="-mr-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden">
-        <span class="sr-only">Open main menu</span>
-        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-        </svg>
-      </button>
-    </div>
-  </div>
+    <div class="header__icons">
+      <a href="{{ routes.search_url }}" aria-label="Search">{% render 'icon-search', class: 'header__icon' %}</a>
+      <a href="{{ routes.account_url }}" aria-label="Account">{% render 'icon-account', class: 'header__icon' %}</a>
+      <a href="{{ routes.cart_url }}" aria-label="Cart">{% render 'icon-cart', class: 'header__icon' %}</a>
 
-  <div id="mobile-menu" class="hidden md:hidden">
-    <div class="space-y-1 px-2 pb-3 pt-2">
-      {%- for link in main_menu.links -%}
-        <a href="{{ link.url }}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900">
-          {{ link.title }}
-        </a>
-      {%- endfor -%}
+      <a href="{{ routes.search_url }}" aria-label="Search">{% render 'icon-search', class:'header__icon' %}</a>
+      <a href="{{ routes.account_url }}" aria-label="Account">{% render 'icon-account', class:'header__icon' %}</a>
+      <a href="{{ routes.cart_url }}" aria-label="Cart">{% render 'icon-cart', class:'header__icon' %}</a>
     </div>
   </div>
 </header>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    if (mobileMenuToggle && mobileMenu) {
-      mobileMenuToggle.addEventListener('click', function () {
-        const isExpanded = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
-        mobileMenuToggle.setAttribute('aria-expanded', !isExpanded);
-        mobileMenu.classList.toggle('hidden');
-      });
-    }
-  });
-</script>
-
-{% schema %}
-{
-  "name": "Header",
-  "class": "header-section-wrapper",
-  "settings": [
-    {
-      "type": "link_list",
-      "id": "menu",
-      "label": "Menu",
-      "default": "main-menu"
-    }
-  ]
-}
-{% endschema %}

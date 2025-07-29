@@ -4,7 +4,71 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>{{ shop.name }} - {{ page_title }}</title>
+  {% liquid
+    assign brampton_city  = "Brampton"
+    assign brand_name     = "Auto Enhance Hub"
+    assign site_keywords  = "car parts, aftermarket parts, used car parts, Brampton"
+  %}
+
+  {%- comment -%}
+    Dynamic title + description fallbacks
+  {%- endcomment -%}
+  <title>
+    {% if page_title != blank %}
+      {{ page_title }} | {{ brand_name }} {{ brampton_city }}
+    {% else %}
+      {{ brand_name }} — {{ site_keywords }}
+    {% endif %}
+  </title>
+
+  {% if page_description != blank %}
+    <meta name="description" content="{{ page_description | escape }}" />
+  {% else %}
+    <meta name="description" content="{{ brand_name }} supplies {{ site_keywords }}. Same-day pickup in {{ brampton_city }}. Call 416-309-1913." />
+  {% endif %}
+
+  {% if product and product.metafields.seo.focus_keywords != blank %}
+    <meta name="keywords" content="{{ site_keywords }}, {{ product.metafields.seo.focus_keywords }}, Ontario, Canada" />
+  {% else %}
+    <meta name="keywords" content="{{ site_keywords }}, Ontario, Canada" />
+  {% endif %}
+  <link rel="icon" href="https://24vzlu2kzs.ufs.sh/f/4JlBnp1v6U48IMnlD3Nlaef7gyzid6OhrCHJxbUWpK93SsGw" type="image/png" />
+  <meta property="og:title"       content="{{ page_title | default: brand_name }}" />
+  <meta property="og:description" content="{{ page_description | default: 'Largest stock of car parts in Brampton' }}" />
+  <meta property="og:type"        content="{% if template == 'product' %}product{% else %}website{% endif %}" />
+  <meta property="og:url"         content="{{ canonical_url }}" />
+  <meta property="og:image"       content="{{ settings.social_share_image | img_url: '800x' }}" />
+  <meta name="twitter:card"       content="summary_large_image" />
+
+  {%- comment -%}
+    Canonical + Hreflang
+  {%- endcomment -%}
+  <link rel="canonical" href="{{ canonical_url }}" />
+  <link rel="alternate" href="{{ canonical_url }}" hreflang="en-CA" />
+
+  {%- comment -%}
+    LocalBusiness schema
+  {%- endcomment -%}
+  <script type="application/ld+json">
+    {
+      "@context":"https://schema.org",
+      "@type":"AutoPartsStore",
+      "name":"{{ brand_name }}",
+      "image":"{{ settings.logo | img_url: '400x' }}",
+      "address":{
+        "@type":"PostalAddress",
+        "streetAddress":"{{ settings.store_address }}",
+        "addressLocality":"Brampton",
+        "addressRegion":"ON",
+        "postalCode":"{{ settings.store_postcode }}",
+        "addressCountry":"CA"
+      },
+      "telephone":"4163091913",
+      "geo":{"@type":"GeoCoordinates","latitude":"{{ settings.store_lat }}","longitude":"{{ settings.store_long }}"},
+      "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"09:00","closes":"18:00"}],
+      "sameAs":["https://instagram.com/autoenhance"]
+    }
+  </script>
   {% for scheme in settings.color_schemes %}
 :root[data-color-scheme="{{ scheme.id }}"]{
   --color-background: {{ scheme.background }};
@@ -18,8 +82,6 @@
   --color-link: {{ scheme.foreground }};
 }
 {% endfor %}
-  <meta name="description" content="{{ page_description | default: shop.description }}">
-
   {{ content_for_header }}
 
   
@@ -32,9 +94,18 @@
   {% section 'header' %}
 
   <main role="main">
+    {% if template.name == 'index' %}
+      {% section 'hero-aeh' %}
+    {% endif %}
     {{ content_for_layout }}
   </main>
 
   {% section 'footer' %}
+  <div class="internal-links text-center text-xs py-4">
+    {% assign used_items = collections.all.products | where: 'tags', 'used' | slice: 0, 6 %}
+    {% for product in used_items %}
+      <a href="{{ product.url }}" class="mx-1">Used Car Parts in Brampton</a>
+    {% endfor %}
+  </div>
 </body>
 </html>

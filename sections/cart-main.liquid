@@ -7,7 +7,7 @@
           <div class="border-b pb-4 mb-4 flex justify-between items-center">
             <div class="flex items-center">
               {% if item.image %}
-                <img src="{{ item.image | image_url: 'small' }}" alt="{{ item.image.alt }}" width="24" height="24" object-cover mr-4/>
+                <img src="{{ item.image | image_url: 'small' }}" alt="{{ item.product.title }} Brampton auto parts" loading="lazy" width="24" height="24" object-cover mr-4/>
               {% else %}
                 <div class="w-24 h-24 bg-gray-200 mr-4"></div>
               {% endif %}

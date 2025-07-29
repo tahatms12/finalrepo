@@ -1,7 +1,7 @@
 {
   "sections": {
     "hero": {
-      "type": "hero-section",
+      "type": "hero-aeh",
       "settings": {}
     },
     "product_grid": {
@@ -11,27 +11,10 @@
         "title": "Matching Products",
         "collection": ""
       }
-    },
-    "17537236073edf10a3": {
-      "type": "apps",
-      "blocks": {
-        "c_year_make_model_search_ymm_searchbox_KBKnxg": {
-          "type": "shopify://apps/c-year-make-model-search/blocks/ymm-searchbox/ce35ea35-ef50-4f43-8cb6-7c34cae4c285",
-          "settings": {
-            "searchbox_title": "",
-            "searchbox_style": "horizontal"
-          }
-        }
-      },
-      "block_order": [
-        "c_year_make_model_search_ymm_searchbox_KBKnxg"
-      ],
-      "settings": {}
     }
   },
   "order": [
     "hero",
-    "product_grid",
-    "17537236073edf10a3"
+    "product_grid"
   ]
 }
