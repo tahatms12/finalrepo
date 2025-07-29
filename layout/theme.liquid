@@ -6,26 +6,79 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="#202D36">
     
-    <link rel="canonical" href="{{ canonical_url }}">
-    <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
-    
-    {%- if settings.favicon != blank -%}
-      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
-    {%- endif -%}
-    
+  <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+
+  {%- if settings.favicon != blank -%}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+  {%- endif -%}
+
+  {% liquid
+    assign brampton_city  = "Brampton"
+    assign brand_name     = "Auto Enhance Hub"
+    assign site_keywords  = "car parts, aftermarket parts, used car parts, Brampton"
+
+    comment
+      Dynamic title + description fallbacks
+    endcomment
     <title>
-      {{ page_title }}
-      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
-      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
-      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+      {% if page_title != blank %}
+        {{ page_title }} | {{ brand_name }} {{ brampton_city }}
+      {% else %}
+        {% if template == 'article' %}
+          {{ article.title }} | Brampton Car-Parts Advice
+        {% else %}
+          {{ brand_name }} — {{ site_keywords }}
+        {% endif %}
+      {% endif %}
     </title>
-    
-    {% if page_description %}
-      <meta name="description" content="{{ page_description | escape }}">
+
+    {% if page_description != blank %}
+      <meta name="description" content="{{ page_description | escape }}" />
+    {% else %}
+      <meta name="description" content="{{ brand_name }} supplies {{ site_keywords }}. Same-day pickup in {{ brampton_city }}. Call 416-309-1913." />
     {% endif %}
-    
-    {{ content_for_header }}
-    
+
+    <meta name="keywords" content="{{ site_keywords }}, {{ product.metafields.seo.focus_keywords }}, Ontario, Canada" />
+    <meta property="og:title"       content="{{ page_title | default: brand_name }}" />
+    <meta property="og:description" content="{{ page_description | default: 'Largest stock of car parts in Brampton' }}" />
+    <meta property="og:type"        content="{% if template == 'product' %}product{% else %}website{% endif %}" />
+    <meta property="og:url"         content="{{ canonical_url }}" />
+    <meta property="og:image"       content="{{ settings.social_share_image | img_url: '800x' }}" />
+    <meta name="twitter:card"       content="summary_large_image" />
+
+    comment
+      Canonical + Hreflang
+    endcomment
+    <link rel="canonical" href="{{ canonical_url }}" />
+    <link rel="alternate" href="{{ canonical_url }}" hreflang="en-CA" />
+
+    comment
+      LocalBusiness schema
+    endcomment
+    <script type="application/ld+json">
+      {
+        "@context":"https://schema.org",
+        "@type":"AutoPartsStore",
+        "name":"{{ brand_name }}",
+        "image":"{{ settings.logo | img_url: '400x' }}",
+        "address":{
+          "@type":"PostalAddress",
+          "streetAddress":"{{ settings.store_address }}",
+          "addressLocality":"Brampton",
+          "addressRegion":"ON",
+          "postalCode":"{{ settings.store_postcode }}",
+          "addressCountry":"CA"
+        },
+        "telephone":"4163091913",
+        "geo":{"@type":"GeoCoordinates","latitude":"{{ settings.store_lat }}","longitude":"{{ settings.store_long }}"},
+        "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"09:00","closes":"18:00"}],
+        "sameAs":["https://instagram.com/autoenhance"]
+      }
+    </script>
+  {% endliquid %}
+
+  {{ content_for_header }}
+
     {% style %}
       :root {
         /* Brand Colors */
@@ -190,6 +243,18 @@
     </main>
 
     {% sections 'footer-group' %}
+
+    <div class="visually-hidden">
+      {% assign links_count = 0 %}
+      {% assign shuffled = collections.all.products | shuffle %}
+      {% for product in shuffled %}
+        {% if product.tags contains 'used' %}
+          <a href="{{ product.url }}">Used Car Parts in Brampton</a>
+          {% assign links_count = links_count | plus: 1 %}
+          {% if links_count == 6 %}{% break %}{% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
 
     <script>
       window.shopUrl = '{{ request.origin }}';

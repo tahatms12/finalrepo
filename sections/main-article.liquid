@@ -1,0 +1,42 @@
+<section class="article-main section">
+  <div class="container">
+    {% liquid
+      assign title_text = article.title
+      unless title_text contains 'Brampton'
+        assign title_text = title_text | append: ' - Brampton'
+      endunless
+    %}
+    <h1 class="mb-6 text-3xl font-bold">{{ title_text }}</h1>
+
+    <div class="prose mb-8">{{ article.content }}</div>
+
+    {% if article.metafields.custom.faq_json != blank %}
+      <script type="application/ld+json">{{ article.metafields.custom.faq_json }}</script>
+    {% endif %}
+
+    <h2 class="text-xl font-semibold mb-4">Related Products</h2>
+    <ul class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {% assign shown = 0 %}
+      {% for product in collections.all.products %}
+        {% for t in article.tags %}
+          {% if product.tags contains t %}
+            <li><a href="{{ product.url }}">{{ product.title }}</a></li>
+            {% assign shown = shown | plus: 1 %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+        {% if shown == 4 %}{% break %}{% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Article Main",
+  "tag": "section",
+  "class": "section",
+  "settings": [],
+  "presets": [{"name":"Article Main"}]
+}
+{% endschema %}
