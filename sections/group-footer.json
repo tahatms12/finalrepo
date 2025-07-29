@@ -1,0 +1,16 @@
+{
+  "name": "Footer group",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer-single",
+      "settings": {
+        "description": "Upgrade your drive with smart, seamless automotive enhancements built specifically for your car.",
+        "menu": "footer"
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

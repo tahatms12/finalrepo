@@ -1,111 +1,205 @@
 <!doctype html>
-<html lang="{{ shop.locale }}">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  {% liquid
-    assign brampton_city  = "Brampton"
-    assign brand_name     = "Auto Enhance Hub"
-    assign site_keywords  = "car parts, aftermarket parts, used car parts, Brampton"
-  %}
-
-  {%- comment -%}
-    Dynamic title + description fallbacks
-  {%- endcomment -%}
-  <title>
-    {% if page_title != blank %}
-      {{ page_title }} | {{ brand_name }} {{ brampton_city }}
-    {% else %}
-      {{ brand_name }} — {{ site_keywords }}
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#202D36">
+    
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+    
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+    
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
     {% endif %}
-  </title>
+    
+    {{ content_for_header }}
+    
+    {% style %}
+      :root {
+        /* Brand Colors */
+        --color-navy: #202D36;
+        --color-crimson: #3C0007;
+        --color-steel: #929CAA;
+        --color-maroon: #6C0102;
+        
+        /* Semantic Colors */
+        --color-primary: var(--color-navy);
+        --color-secondary: var(--color-steel);
+        --color-accent: var(--color-crimson);
+        --color-accent-hover: var(--color-maroon);
+        --color-text: var(--color-navy);
+        --color-text-light: var(--color-steel);
+        --color-background: #ffffff;
+        --color-surface: #f8f9fa;
+        
+        /* Typography */
+        --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        --font-size-base: 1rem;
+        --line-height-base: 1.5;
+        --font-weight-normal: 400;
+        --font-weight-medium: 500;
+        --font-weight-semibold: 600;
+        --font-weight-bold: 700;
+        
+        /* Spacing */
+        --spacing-xs: 0.5rem;
+        --spacing-sm: 1rem;
+        --spacing-md: 1.5rem;
+        --spacing-lg: 2rem;
+        --spacing-xl: 3rem;
+        --spacing-2xl: 4rem;
+        
+        /* Border Radius */
+        --radius-sm: 4px;
+        --radius-md: 8px;
+        --radius-lg: 12px;
+        
+        /* Shadows */
+        --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.12);
+        --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.16);
+        
+        /* Transitions */
+        --transition-base: all 0.2s ease;
+      }
 
-  {% if page_description != blank %}
-    <meta name="description" content="{{ page_description | escape }}" />
-  {% else %}
-    <meta name="description" content="{{ brand_name }} supplies {{ site_keywords }}. Same-day pickup in {{ brampton_city }}. Call 416-309-1913." />
-  {% endif %}
+      * {
+        box-sizing: border-box;
+      }
 
-  {% if product and product.metafields.seo.focus_keywords != blank %}
-    <meta name="keywords" content="{{ site_keywords }}, {{ product.metafields.seo.focus_keywords }}, Ontario, Canada" />
-  {% else %}
-    <meta name="keywords" content="{{ site_keywords }}, Ontario, Canada" />
-  {% endif %}
-  <link rel="icon" href="https://24vzlu2kzs.ufs.sh/f/4JlBnp1v6U48IMnlD3Nlaef7gyzid6OhrCHJxbUWpK93SsGw" type="image/png" />
-  <meta property="og:title"       content="{{ page_title | default: brand_name }}" />
-  <meta property="og:description" content="{{ page_description | default: 'Largest stock of car parts in Brampton' }}" />
-  <meta property="og:type"        content="{% if template == 'product' %}product{% else %}website{% endif %}" />
-  <meta property="og:url"         content="{{ canonical_url }}" />
-  <meta property="og:image"       content="{{ settings.social_share_image | img_url: '800x' }}" />
-  <meta name="twitter:card"       content="summary_large_image" />
+      body {
+        font-family: var(--font-family);
+        font-size: var(--font-size-base);
+        line-height: var(--line-height-base);
+        color: var(--color-text);
+        background-color: var(--color-background);
+        margin: 0;
+        padding: 0;
+      }
 
-  {%- comment -%}
-    Canonical + Hreflang
-  {%- endcomment -%}
-  <link rel="canonical" href="{{ canonical_url }}" />
-  <link rel="alternate" href="{{ canonical_url }}" hreflang="en-CA" />
+      h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: var(--font-weight-bold);
+        line-height: 1.2;
+        margin: 0 0 var(--spacing-md) 0;
+      }
 
-  {%- comment -%}
-    LocalBusiness schema
-  {%- endcomment -%}
-  <script type="application/ld+json">
-    {
-      "@context":"https://schema.org",
-      "@type":"AutoPartsStore",
-      "name":"{{ brand_name }}",
-      "image":"{{ settings.logo | img_url: '400x' }}",
-      "address":{
-        "@type":"PostalAddress",
-        "streetAddress":"{{ settings.store_address }}",
-        "addressLocality":"Brampton",
-        "addressRegion":"ON",
-        "postalCode":"{{ settings.store_postcode }}",
-        "addressCountry":"CA"
-      },
-      "telephone":"4163091913",
-      "geo":{"@type":"GeoCoordinates","latitude":"{{ settings.store_lat }}","longitude":"{{ settings.store_long }}"},
-      "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens":"09:00","closes":"18:00"}],
-      "sameAs":["https://instagram.com/autoenhance"]
-    }
-  </script>
-  {% for scheme in settings.color_schemes %}
-:root[data-color-scheme="{{ scheme.id }}"]{
-  --color-background: {{ scheme.background }};
-  --gradient-background: {{ scheme.gradient | default: 'none' }};
-  --color-foreground: {{ scheme.foreground }};
-  --color-shadow: {{ scheme.shadow }};
-  --color-button: {{ scheme.button_bg }};
-  --color-button-text: {{ scheme.button_text }};
-  --color-secondary-button: {{ scheme.background }};
-  --color-secondary-button-text: {{ scheme.secondary_text }};
-  --color-link: {{ scheme.foreground }};
-}
-{% endfor %}
-  {{ content_for_header }}
+      h2 {
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: var(--font-weight-bold);
+        line-height: 1.3;
+        margin: 0 0 var(--spacing-md) 0;
+      }
 
-  
-  {{ 'theme.css' | asset_url | stylesheet_tag }}
+      h3 {
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: var(--font-weight-semibold);
+        line-height: 1.4;
+        margin: 0 0 var(--spacing-sm) 0;
+      }
 
-  
-</head>
-<body data-color-scheme="{{ settings.default_color_scheme }}">
-  
-  {% section 'header' %}
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 24px;
+        font-family: var(--font-family);
+        font-size: var(--font-size-base);
+        font-weight: var(--font-weight-semibold);
+        text-decoration: none;
+        border: none;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        transition: var(--transition-base);
+        min-height: 48px;
+      }
+      
+      .btn--primary {
+        background-color: var(--color-accent);
+        color: white;
+      }
+      
+      .btn--primary:hover {
+        background-color: var(--color-accent-hover);
+        transform: translateY(-1px);
+      }
 
-  <main role="main">
-    {% if template.name == 'index' %}
-      {% section 'hero-aeh' %}
-    {% endif %}
-    {{ content_for_layout }}
-  </main>
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 var(--spacing-sm);
+      }
 
-  {% section 'footer' %}
-  <div class="internal-links text-center text-xs py-4">
-    {% assign used_items = collections.all.products | where: 'tags', 'used' | slice: 0, 6 %}
-    {% for product in used_items %}
-      <a href="{{ product.url }}" class="mx-1">Used Car Parts in Brampton</a>
-    {% endfor %}
-  </div>
-</body>
+      @media (min-width: 768px) {
+        .container {
+          padding: 0 var(--spacing-md);
+        }
+      }
+
+      .text-center { text-align: center; }
+      .section { padding: var(--spacing-xl) 0; }
+
+      @media (min-width: 768px) {
+        .section { padding: var(--spacing-2xl) 0; }
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .no-js-hidden {
+        display: none !important;
+      }
+
+      .js .no-js-hidden {
+        display: block !important;
+      }
+    {% endstyle %}
+    
+    {{ 'theme.scss' | asset_url | stylesheet_tag }}
+    
+    <script>
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+      if (Shopify.designMode) {
+        document.documentElement.classList.add('shopify-design-mode');
+      }
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-to-content-link btn visually-hidden" href="#MainContent">
+      Skip to content
+    </a>
+
+    {% sections 'header-group' %}
+
+    <main id="MainContent" class="content-for-layout" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    <script>
+      window.shopUrl = '{{ request.origin }}';
+      window.routes = {
+        cart_add_url: '{{ routes.cart_add_url }}',
+        cart_change_url: '{{ routes.cart_change_url }}',
+        cart_update_url: '{{ routes.cart_update_url }}',
+        cart_url: '{{ routes.cart_url }}',
+        predictive_search_url: '{{ routes.predictive_search_url }}'
+      };
+    </script>
+  </body>
 </html>

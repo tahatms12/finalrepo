@@ -1,0 +1,23 @@
+{
+  "name": "Header group",
+  "type": "header",
+  "sections": {
+    "promo_strip": {
+      "type": "promo-strip",
+      "settings": {
+        "text": "Free shipping on orders over $100 | Same-day installation available",
+        "background_color": "#3C0007",
+        "text_color": "#ffffff",
+        "show_close_button": true
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {}
+    }
+  },
+  "order": [
+    "promo_strip",
+    "header"
+  ]
+}

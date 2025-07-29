@@ -1,20 +1,205 @@
-<section class="faq-accordion max-w-3xl mx-auto">
-  {% if section.settings.title %}<h2 class="font-heading text-h2-mobile md:text-h2-desktop font-heading-weight mb-8 text-center">{{ section.settings.title }}</h2>{% endif %}
-  <div class="space-y-4">
-    {% for block in section.blocks %}
-      <details class="border-[var(--cards-border)] border-solid border-[color:var(--color-foreground)]/[var(--cards-border-opacity)] rounded-[var(--cards-radius)] p-4 shadow-[var(--cards-shadow-offset)] [box-shadow:var(--cards-shadow-offset)_rgba(var(--color-shadow),var(--cards-shadow-opacity))]">
-        <summary class="font-body-weight-bold cursor-pointer">{{ block.settings.question }}</summary>
-        <div class="mt-2">{{ block.settings.answer }}</div>
-      </details>
-    {% endfor %}
+<div class="faq-accordion section">
+  <div class="container">
+    {%- if section.settings.title != blank -%}
+      <h2 class="faq-accordion__title text-center">{{ section.settings.title }}</h2>
+    {%- endif -%}
+    
+    <div class="faq-accordion__list">
+      {%- for block in section.blocks -%}
+        <details class="accordion__item" {{ block.shopify_attributes }}>
+          <summary class="accordion__header">
+            <span class="accordion__question">{{ block.settings.question }}</span>
+            <span class="accordion__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="accordion__content">
+            <div class="accordion__answer">{{ block.settings.answer }}</div>
+          </div>
+        </details>
+      {%- endfor -%}
+    </div>
   </div>
+</div>
 
-  {% schema %}{
-    "name":"FAQ accordion",
-    "tag":"section",
-    "max_blocks":20,
-    "settings":[{"type":"text","id":"title","label":"Heading","default":"FAQs"}],
-    "blocks":[{"type":"faq","name":"FAQ","settings":[{"type":"text","id":"question","label":"Question"},{"type":"textarea","id":"answer","label":"Answer"}]}],
-    "presets":[{"name":"FAQ accordion"}]
-  }{% endschema %}
-</section>
+<style>
+  .faq-accordion {
+    padding: var(--spacing-xl) 0;
+    background-color: white;
+  }
+  
+  .faq-accordion__title {
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .faq-accordion__list {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .accordion__item {
+    border: 1px solid #e5e7eb;
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-sm);
+    overflow: hidden;
+    transition: var(--transition-base);
+  }
+  
+  .accordion__item:hover {
+    box-shadow: var(--shadow-card);
+  }
+  
+  .accordion__item[open] {
+    border-color: var(--color-accent);
+  }
+  
+  .accordion__header {
+    width: 100%;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: none;
+    border: none;
+    text-align: left;
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: var(--transition-base);
+    list-style: none;
+    font-size: 1.1rem;
+    color: var(--color-text);
+  }
+  
+  .accordion__header::-webkit-details-marker {
+    display: none;
+  }
+  
+  .accordion__header:hover {
+    background: var(--color-surface);
+  }
+  
+  .accordion__item[open] .accordion__header {
+    background: var(--color-surface);
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .accordion__question {
+    flex: 1;
+    margin-right: var(--spacing-md);
+  }
+  
+  .accordion__icon {
+    flex-shrink: 0;
+    transition: var(--transition-base);
+    color: var(--color-accent);
+  }
+  
+  .accordion__item[open] .accordion__icon {
+    transform: rotate(180deg);
+  }
+  
+  .accordion__content {
+    padding: 0 var(--spacing-lg) var(--spacing-lg);
+  }
+  
+  .accordion__answer {
+    color: var(--color-text-light);
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+  
+  .accordion__answer p {
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .accordion__answer p:last-child {
+    margin-bottom: 0;
+  }
+  
+  @media screen and (max-width: 750px) {
+    .accordion__header {
+      padding: var(--spacing-md);
+      font-size: 1rem;
+    }
+    
+    .accordion__content {
+      padding: 0 var(--spacing-md) var(--spacing-md);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "FAQ Accordion",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Frequently Asked Questions",
+      "label": "Heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "default": "Question goes here?",
+          "label": "Question"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "default": "<p>Answer goes here. You can include multiple paragraphs and formatting.</p>",
+          "label": "Answer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Accordion",
+      "blocks": [
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How do I know if this product is compatible with my car?",
+            "answer": "<p>All our products include detailed compatibility information. You can also use our vehicle lookup tool or contact our support team for personalized assistance.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "What's included in the installation package?",
+            "answer": "<p>Each product comes with everything needed for installation including detailed instructions, all necessary hardware, and access to our video installation guides.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer professional installation?",
+            "answer": "<p>Yes! We partner with certified installers nationwide. Contact us to find an installer near you or to schedule an appointment at one of our service centers.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "What's your return policy?",
+            "answer": "<p>We offer a 30-day return policy on all products. Items must be in original condition with all packaging and accessories included.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

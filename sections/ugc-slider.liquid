@@ -1,0 +1,462 @@
+<div class="ugc-slider section">
+  <div class="container">
+    {%- if section.settings.title != blank -%}
+      <h2 class="ugc-slider__title text-center">{{ section.settings.title }}</h2>
+    {%- endif -%}
+    
+    <div class="ugc-slider__container">
+      <div class="slider" data-ugc-slider>
+        <div class="slider__track" data-slider-track>
+          {%- for block in section.blocks -%}
+            <div class="slider__slide ugc-slide" {{ block.shopify_attributes }}>
+              <div class="ugc-slide__content">
+                {%- if block.settings.image != blank -%}
+                  <div class="ugc-slide__image">
+                    <img
+                      src="{{ block.settings.image | image_url: width: 400 }}"
+                      alt="{{ block.settings.customer_name | escape }}"
+                      loading="lazy"
+                      width="400"
+                      height="400"
+                    >
+                  </div>
+                {%- endif -%}
+                
+                <div class="ugc-slide__text">
+                  {%- if block.settings.quote != blank -%}
+                    <blockquote class="ugc-slide__quote">
+                      "{{ block.settings.quote }}"
+                    </blockquote>
+                  {%- endif -%}
+                  
+                  {%- if block.settings.customer_name != blank -%}
+                    <cite class="ugc-slide__author">
+                      {{ block.settings.customer_name }}
+                      {%- if block.settings.product_name != blank -%}
+                        <span class="ugc-slide__product">{{ block.settings.product_name }}</span>
+                      {%- endif -%}
+                    </cite>
+                  {%- endif -%}
+                  
+                  {%- if block.settings.rating > 0 -%}
+                    <div class="ugc-slide__rating">
+                      {%- for i in (1..5) -%}
+                        <span class="star {% if i <= block.settings.rating %}star--filled{% endif %}">★</span>
+                      {%- endfor -%}
+                    </div>
+                  {%- endif -%}
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+        
+        <div class="slider__controls">
+          <button class="slider__btn slider__btn--prev" data-slider-prev aria-label="Previous slide">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="slider__btn slider__btn--next" data-slider-next aria-label="Next slide">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+        
+        <div class="slider__nav" data-slider-nav></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .ugc-slider {
+    padding: var(--spacing-xl) 0;
+    background-color: white;
+  }
+  
+  .ugc-slider__title {
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .ugc-slider__container {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .ugc-slide {
+    padding: 0 var(--spacing-sm);
+  }
+  
+  .ugc-slide__content {
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: var(--spacing-lg);
+    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .ugc-slide__image {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto var(--spacing-md);
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  
+  .ugc-slide__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .ugc-slide__text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .ugc-slide__quote {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--color-text);
+    margin: 0 0 var(--spacing-md) 0;
+    line-height: 1.6;
+    flex: 1;
+  }
+  
+  .ugc-slide__author {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+    font-style: normal;
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .ugc-slide__product {
+    display: block;
+    font-weight: var(--font-weight-normal);
+    color: var(--color-text-light);
+    font-size: 0.9rem;
+    margin-top: var(--spacing-xs);
+  }
+  
+  .ugc-slide__rating {
+    display: flex;
+    justify-content: center;
+    gap: 2px;
+    margin-top: var(--spacing-xs);
+  }
+  
+  .star {
+    color: #ddd;
+    font-size: 1.2rem;
+  }
+  
+  .star--filled {
+    color: #ffc107;
+  }
+  
+  .slider__controls {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 50%;
+    left: -60px;
+    right: -60px;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+  
+  .slider__btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-base);
+    pointer-events: auto;
+    box-shadow: var(--shadow-card);
+  }
+  
+  .slider__btn:hover {
+    background: var(--color-surface);
+    transform: scale(1.05);
+  }
+  
+  @media screen and (max-width: 1100px) {
+    .slider__controls {
+      left: -30px;
+      right: -30px;
+    }
+    
+    .slider__btn {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  
+  @media screen and (max-width: 750px) {
+    .slider__controls {
+      display: none;
+    }
+  }
+
+  .slider {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .slider__track {
+    display: flex;
+    transition: transform 0.3s ease;
+  }
+
+  .slider__slide {
+    flex: 0 0 100%;
+  }
+
+  @media screen and (min-width: 750px) {
+    .slider__slide {
+      flex: 0 0 50%;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .slider__slide {
+      flex: 0 0 33.333%;
+    }
+  }
+
+  .slider__nav {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    margin-top: var(--spacing-md);
+  }
+
+  .slider__dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--color-steel);
+    border: none;
+    cursor: pointer;
+    transition: var(--transition-base);
+  }
+
+  .slider__dot--active {
+    background: var(--color-accent);
+  }
+</style>
+
+<script>
+  class UGCSlider {
+    constructor(slider) {
+      this.slider = slider;
+      this.track = slider.querySelector('[data-slider-track]');
+      this.nav = slider.querySelector('[data-slider-nav]');
+      this.prevBtn = slider.querySelector('[data-slider-prev]');
+      this.nextBtn = slider.querySelector('[data-slider-next]');
+      this.slides = slider.querySelectorAll('.slider__slide');
+      this.currentSlide = 0;
+      this.slidesPerView = this.getSlidesPerView();
+      this.totalSlides = this.slides.length;
+      
+      this.init();
+      this.bindEvents();
+    }
+    
+    getSlidesPerView() {
+      if (window.innerWidth >= 1024) return 3;
+      if (window.innerWidth >= 750) return 2;
+      return 1;
+    }
+    
+    init() {
+      this.createDots();
+      this.updateSlider();
+      
+      if (this.totalSlides > this.slidesPerView) {
+        this.startAutoPlay();
+      }
+    }
+    
+    createDots() {
+      const dotsCount = Math.max(1, this.totalSlides - this.slidesPerView + 1);
+      for (let i = 0; i < dotsCount; i++) {
+        const dot = document.createElement('button');
+        dot.classList.add('slider__dot');
+        dot.setAttribute('data-slide', i);
+        if (i === 0) dot.classList.add('slider__dot--active');
+        this.nav.appendChild(dot);
+      }
+    }
+    
+    bindEvents() {
+      this.prevBtn?.addEventListener('click', () => this.prevSlide());
+      this.nextBtn?.addEventListener('click', () => this.nextSlide());
+      
+      this.nav.addEventListener('click', (e) => {
+        if (e.target.classList.contains('slider__dot')) {
+          this.currentSlide = parseInt(e.target.dataset.slide);
+          this.updateSlider();
+          this.resetAutoPlay();
+        }
+      });
+      
+      window.addEventListener('resize', () => {
+        this.slidesPerView = this.getSlidesPerView();
+        this.updateSlider();
+      });
+      
+      this.slider.addEventListener('mouseenter', () => this.pauseAutoPlay());
+      this.slider.addEventListener('mouseleave', () => this.startAutoPlay());
+    }
+    
+    prevSlide() {
+      this.currentSlide = this.currentSlide > 0 ? this.currentSlide - 1 : this.totalSlides - this.slidesPerView;
+      this.updateSlider();
+      this.resetAutoPlay();
+    }
+    
+    nextSlide() {
+      this.currentSlide = this.currentSlide < this.totalSlides - this.slidesPerView ? this.currentSlide + 1 : 0;
+      this.updateSlider();
+      this.resetAutoPlay();
+    }
+    
+    updateSlider() {
+      const translateX = -(this.currentSlide * (100 / this.slidesPerView));
+      this.track.style.transform = `translateX(${translateX}%)`;
+      
+      this.nav.querySelectorAll('.slider__dot').forEach((dot, index) => {
+        dot.classList.toggle('slider__dot--active', index === this.currentSlide);
+      });
+    }
+    
+    startAutoPlay() {
+      if (this.totalSlides <= this.slidesPerView) return;
+      this.autoPlayInterval = setInterval(() => {
+        this.nextSlide();
+      }, 5000);
+    }
+    
+    pauseAutoPlay() {
+      clearInterval(this.autoPlayInterval);
+    }
+    
+    resetAutoPlay() {
+      this.pauseAutoPlay();
+      this.startAutoPlay();
+    }
+  }
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-ugc-slider]').forEach(slider => {
+      new UGCSlider(slider);
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "UGC Slider",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "What Our Customers Say",
+      "label": "Heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Customer Review",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Customer Photo"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "default": "Amazing product! Exactly what I was looking for.",
+          "label": "Review Quote"
+        },
+        {
+          "type": "text",
+          "id": "customer_name",
+          "default": "Customer Name",
+          "label": "Customer Name"
+        },
+        {
+          "type": "text",
+          "id": "product_name",
+          "label": "Product Name"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5,
+          "label": "Rating"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "UGC Slider",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "quote": "Perfect fit for my car! Installation was super easy and the quality is outstanding.",
+            "customer_name": "Mike Johnson",
+            "product_name": "Wireless CarPlay Adapter",
+            "rating": 5
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "quote": "Game changer for my daily commute. Seamless connectivity and great build quality.",
+            "customer_name": "Sarah Chen",
+            "product_name": "Dashboard Camera",
+            "rating": 5
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "quote": "Excellent customer service and fast shipping. Highly recommend!",
+            "customer_name": "David Rodriguez",
+            "product_name": "LED Headlight Kit",
+            "rating": 5
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

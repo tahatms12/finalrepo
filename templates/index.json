@@ -1,20 +1,200 @@
 {
   "sections": {
-    "hero": {
-      "type": "hero-aeh",
-      "settings": {}
+    "hero_banner": {
+      "type": "hero-banner",
+      "settings": {
+        "heading": "Upgrade your drive — smart, seamless, and built for your car",
+        "text": "Discover premium automotive enhancements designed for performance and style.",
+        "button_label": "Shop Now",
+        "button_link": "/collections/all",
+        "desktop_height": 80,
+        "mobile_height": 70
+      }
+    },
+    "feature_icons": {
+      "type": "feature-icons",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "title": "Perfect Compatibility",
+            "description": "Engineered specifically for your vehicle's make and model"
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "title": "Easy Installation",
+            "description": "Simple plug-and-play setup with detailed instructions"
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "title": "Wireless Integration",
+            "description": "Seamless connectivity with your smartphone and devices"
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "title": "Expert Support",
+            "description": "Dedicated customer service and technical assistance"
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4"
+      ],
+      "settings": {
+        "title": "Why Choose Us"
+      }
     },
     "product_grid": {
-      "type": "product-grid",
-      "custom_css": [],
+      "type": "product-grid-filtered",
       "settings": {
-        "title": "Matching Products",
-        "collection": ""
+        "title": "Featured Products",
+        "products_to_show": 8,
+        "columns_desktop": 4,
+        "enable_mobile_slider": true,
+        "show_view_all": true,
+        "image_ratio": "adapt",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_quick_add": false
+      }
+    },
+    "ugc_slider": {
+      "type": "ugc-slider",
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "quote": "Perfect fit for my car! Installation was super easy and the quality is outstanding.",
+            "customer_name": "Mike Johnson",
+            "product_name": "Wireless CarPlay Adapter",
+            "rating": 5
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "quote": "Game changer for my daily commute. Seamless connectivity and great build quality.",
+            "customer_name": "Sarah Chen",
+            "product_name": "Dashboard Camera",
+            "rating": 5
+          }
+        },
+        "review_3": {
+          "type": "review",
+          "settings": {
+            "quote": "Excellent customer service and fast shipping. Highly recommend!",
+            "customer_name": "David Rodriguez",
+            "product_name": "LED Headlight Kit",
+            "rating": 5
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ],
+      "settings": {
+        "title": "What Our Customers Say"
+      }
+    },
+    "install_steps": {
+      "type": "install-steps",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Prepare Your Vehicle",
+            "description": "Turn off your vehicle and locate the installation point. Ensure you have all necessary tools ready.",
+            "tip": "Take a photo of the original setup before making any changes"
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Connect the Device",
+            "description": "Carefully connect the device following the color-coded wiring diagram included in your package.",
+            "tip": "Double-check all connections before proceeding to the next step"
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Test & Enjoy",
+            "description": "Start your vehicle and test all functions. Your new enhancement is now ready to use!",
+            "tip": "Keep the installation guide handy for future reference"
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
+      "settings": {
+        "title": "Easy Installation Process",
+        "description": "Follow these simple steps to install your new automotive enhancement"
+      }
+    },
+    "faq_accordion": {
+      "type": "faq-accordion",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I know if this product is compatible with my car?",
+            "answer": "<p>All our products include detailed compatibility information. You can also use our vehicle lookup tool or contact our support team for personalized assistance.</p>"
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "What's included in the installation package?",
+            "answer": "<p>Each product comes with everything needed for installation including detailed instructions, all necessary hardware, and access to our video installation guides.</p>"
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer professional installation?",
+            "answer": "<p>Yes! We partner with certified installers nationwide. Contact us to find an installer near you or to schedule an appointment at one of our service centers.</p>"
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "What's your return policy?",
+            "answer": "<p>We offer a 30-day return policy on all products. Items must be in original condition with all packaging and accessories included.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4"
+      ],
+      "settings": {
+        "title": "Frequently Asked Questions"
       }
     }
   },
   "order": [
-    "hero",
-    "product_grid"
+    "hero_banner",
+    "feature_icons",
+    "product_grid",
+    "ugc_slider",
+    "install_steps",
+    "faq_accordion"
   ]
 }

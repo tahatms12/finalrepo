@@ -1,0 +1,163 @@
+{%- style -%}
+  .promo-strip--{{ section.id }} {
+    --promo-bg-color: {{ section.settings.background_color }};
+    --promo-text-color: {{ section.settings.text_color }};
+  }
+{%- endstyle -%}
+
+<div class="promo-strip promo-strip--{{ section.id }}">
+  <div class="container">
+    <div class="promo-strip__content">
+      {%- if section.settings.text != blank -%}
+        <p class="promo-strip__text">{{ section.settings.text }}</p>
+      {%- endif -%}
+      
+      {%- if section.settings.button_label != blank and section.settings.button_link != blank -%}
+        <a href="{{ section.settings.button_link }}" class="promo-strip__button">
+          {{ section.settings.button_label }}
+        </a>
+      {%- endif -%}
+    </div>
+    
+    {%- if section.settings.show_close_button -%}
+      <button class="promo-strip__close" onclick="this.parentElement.parentElement.style.display='none'" aria-label="Close announcement">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    {%- endif -%}
+  </div>
+</div>
+
+<style>
+  .promo-strip {
+    background-color: var(--promo-bg-color, var(--color-accent));
+    color: var(--promo-text-color, white);
+    padding: var(--spacing-sm) 0;
+    position: relative;
+    text-align: center;
+  }
+  
+  .promo-strip .container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .promo-strip__content {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .promo-strip__text {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: var(--font-weight-medium);
+  }
+  
+  .promo-strip__button {
+    background: rgba(255, 255, 255, 0.2);
+    color: inherit;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: var(--font-weight-semibold);
+    transition: var(--transition-base);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  .promo-strip__button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+  }
+  
+  .promo-strip__close {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: var(--radius-sm);
+    transition: var(--transition-base);
+    opacity: 0.7;
+  }
+  
+  .promo-strip__close:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  @media screen and (max-width: 750px) {
+    .promo-strip__content {
+      flex-direction: column;
+      gap: var(--spacing-xs);
+    }
+    
+    .promo-strip__text {
+      font-size: 0.85rem;
+    }
+    
+    .promo-strip__close {
+      top: var(--spacing-xs);
+      transform: none;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Promo Strip",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "default": "Free shipping on orders over $100 | Same-day installation available",
+      "label": "Announcement text"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#3C0007"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_close_button",
+      "default": true,
+      "label": "Show close button"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promo Strip"
+    }
+  ]
+}
+{% endschema %}
