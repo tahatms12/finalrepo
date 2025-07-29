@@ -1,5 +1,16 @@
+<meta name="description" content="{{ collection.description | strip_html | truncate: 160 }} | Brampton aftermarket & used parts" />
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BreadcrumbList",
+  "itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"{{ shop.url }}"},
+    {"@type":"ListItem","position":2,"name":"{{ collection.title }}","item":"{{ shop.url }}{{ collection.url }}"}
+  ]
+}
+</script>
 <div class="container mx-auto p-10">
-  <h1 class="text-3xl font-bold mb-8">{{ collection.title }}</h1>
+  <h1 class="text-3xl font-bold mb-8">{{ collection.title }} — Car Parts in Brampton</h1>
   <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
     <div class="col-span-1">
       <h2 class="font-bold mb-4">{{ section.settings.filters_title }}</h2>
@@ -21,7 +32,7 @@
           <div class="border p-4 rounded">
             <a href="{{ product.url }}">
               {% if product.featured_image %}
-                <img src="{{ product.featured_image | image_url: 'medium' }}" alt="{{ product.featured_image.alt }}" width="full" height="48" object-cover mb-4/>
+                <img src="{{ product.featured_image | image_url: 'medium' }}" alt="{{ product.title }} Brampton auto parts" loading="lazy" width="full" height="48" object-cover mb-4/>
               {% else %}
                 <div class="bg-gray-200 h-48 mb-4"></div>
               {% endif %}
@@ -35,6 +46,16 @@
         {% endfor %}
       </div>
     </div>
+  </div>
+  <div class="mt-8 text-center text-xs">
+    {% assign count = 0 %}
+    {% for coll in collections %}
+      {% if coll.handle != collection.handle %}
+        <a href="{{ coll.url }}" class="mx-1">Aftermarket Parts Brampton</a>
+        {% assign count = count | plus: 1 %}
+        {% if count == 6 %}{% break %}{% endif %}
+      {% endif %}
+    {% endfor %}
   </div>
 </div>
 

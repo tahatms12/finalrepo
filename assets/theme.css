@@ -197,3 +197,126 @@ body {
 .animation-delay-400 {
   animation-delay: 0.4s;
 }
+
+/***** AEH HEADER START *****/
+:root{
+  --aeh-navy:#202D36;
+  --aeh-crimson:#3C0007;
+  --aeh-steel:#929CAA;
+  --aeh-maroon:#6C0102;
+}
+
+.header-wrapper{
+  background:linear-gradient(90deg,var(--aeh-navy) 0%,var(--aeh-crimson) 100%);
+  height:80px;
+  position:sticky;
+  top:0;
+  z-index:50;
+  box-shadow:0 2px 4px rgba(0,0,0,.25);
+}
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  height:100%;
+  padding:0 24px;
+}
+
+.header__heading-logo{
+  width:40px;
+  height:40px;
+}
+
+.header__menu{
+  display:flex;
+  gap:32px;
+}
+
+.header__menu-item{
+  color:#fff;
+  font-size:14px;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  line-height:1;
+}
+
+.header__menu-item[aria-current='page']{
+  color:var(--aeh-maroon);
+}
+
+.header__icons{
+  display:flex;
+  gap:24px;
+}
+
+.header__icon{
+  width:20px;
+  height:20px;
+  stroke:var(--aeh-steel);
+  fill:none;
+  transition:stroke .15s;
+}
+
+.header__icon:hover{
+  stroke:#fff;
+}
+
+@media(max-width:991px){
+  .header__menu{display:none;}
+}
+/***** AEH HEADER END *****/
+
+/***** AEH HERO START *****/
+.hero-aeh{
+  position:relative;
+  width:100%;
+  min-height:520px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background-size:cover;
+  background-position:center;
+  color:#fff;
+}
+.hero-aeh__overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.3));
+}
+.hero-aeh__content{
+  position:relative;
+  max-width:720px;
+  padding:0 24px;
+}
+.hero-aeh__title{
+  font-size:48px;
+  line-height:1.1;
+  margin-bottom:16px;
+  text-shadow:0 2px 4px rgba(0,0,0,.4);
+}
+.hero-aeh__subtitle{
+  font-size:18px;
+  margin-bottom:24px;
+  color:var(--aeh-steel);
+}
+.hero-aeh__btn{
+  display:inline-block;
+  padding:12px 28px;
+  background:var(--aeh-maroon);
+  color:#fff;
+  text-transform:uppercase;
+  font-size:14px;
+  letter-spacing:.04em;
+  border:none;
+  border-radius:4px;
+  transition:background .2s,color .2s;
+  cursor:pointer;
+}
+.hero-aeh__btn:hover{background:#fff;color:var(--aeh-maroon);}
+@media(max-width:767px){
+  .hero-aeh{min-height:360px;}
+  .hero-aeh__title{font-size:32px;}
+}
+/***** AEH HERO END *****/
