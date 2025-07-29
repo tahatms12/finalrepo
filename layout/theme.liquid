@@ -32,6 +32,9 @@
   {% section 'header' %}
 
   <main role="main">
+    {% if template.name == 'index' %}
+      {% section 'hero-aeh' %}
+    {% endif %}
     {{ content_for_layout }}
   </main>
 
